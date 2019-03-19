@@ -1,4 +1,14 @@
 ngx_addon_name=ngx_http_sqlite_module
+if test -n "$ngx_module_link"; then
+    ngx_module_type=HTTP
+    ngx_module_name=$ngx_addon_name
+    ngx_module_incs=
+    ngx_module_deps="$ngx_addon_dir/src/ngx_http_sqlite_module.h"
+    ngx_module_srcs="$ngx_addon_dir/src/ngx_http_sqlite_module.c"
+    ngx_module_libs="-lsqlite3"
+
+    . auto/module
+else
 HTTP_MODULES="$HTTP_MODULES ngx_http_sqlite_module"
 NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_sqlite_module.c"
 
@@ -15,3 +25,4 @@ fi
 CORE_INCS="$CORE_INCS $SQLITE_INC"
 
 CORE_LIBS="$CORE_LIBS -L$SQLITE_LIB -lsqlite3"
+fi
